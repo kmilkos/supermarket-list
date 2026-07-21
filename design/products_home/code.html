@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="el"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperMarket List - Products</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#410002",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-background": "#191c1e",
+                      "secondary-container": "#7cf994",
+                      "on-surface": "#191c1e",
+                      "secondary": "#006e2d",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary-container": "#eeefff",
+                      "tertiary": "#ae0010",
+                      "surface-container-low": "#f2f4f6",
+                      "inverse-primary": "#b4c5ff",
+                      "on-surface-variant": "#434655",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#d52022",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#62df7d",
+                      "surface-container": "#eceef0",
+                      "on-primary-fixed": "#00174b",
+                      "surface-dim": "#d8dadc",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#007230",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-tint": "#0053db",
+                      "primary-fixed": "#dbe1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#93000b",
+                      "surface": "#f7f9fb",
+                      "tertiary-fixed-dim": "#ffb4ab",
+                      "surface-bright": "#f7f9fb",
+                      "on-secondary-fixed": "#002109",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "primary": "#004ac6",
+                      "secondary-fixed": "#7ffc97",
+                      "on-tertiary-container": "#ffecea",
+                      "tertiary-fixed": "#ffdad6",
+                      "background": "#f7f9fb",
+                      "outline": "#737686",
+                      "inverse-surface": "#2d3133",
+                      "on-secondary-fixed-variant": "#005320",
+                      "primary-container": "#2563eb",
+                      "outline-variant": "#c3c6d7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "container-padding": "16px",
+                      "touch-target-min": "44px",
+                      "gutter": "12px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "price-lg": ["Inter"],
+                      "display": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "price-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "display": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased pb-24 md:pb-8 flex flex-col min-h-screen">
+<!-- TopAppBar from JSON -->
+<header class="docked full-width top-0 sticky z-40 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex justify-between items-center px-margin-mobile h-14 w-full">
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 rounded-full p-2 touch-target flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">SuperMarket List</h1>
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 rounded-full p-2 touch-target flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+<!-- Search Input Below Top App Bar -->
+<div class="px-container-padding pb-3">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container h-touch-target-min" placeholder="Search products..." type="text"/>
+</div>
+</div>
+</header>
+<main class="flex-grow px-container-padding py-4 md:max-w-4xl md:mx-auto md:w-full">
+<!-- 2-Column Grid -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] overflow-hidden flex flex-col border border-surface-variant">
+<div class="aspect-square w-full relative bg-surface-container-low p-2">
+<img class="w-full h-full object-contain rounded-lg mix-blend-multiply" data-alt="A clean, studio-lit photo of a fresh milk bottle on a minimal light grey background. The lighting is bright and high-key, emphasizing the pure white of the milk and the crisp, modern Corporate Modern aesthetic. A subtle shadow anchors the bottle, ensuring focus on the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0DPZs54qwUTr9Ffmi7ItEpIZjlFNt4Dbdfr7tCML0Hpvg6b1PyHazK1JT2ZhzbT1FyBZQhxc3cPXOPlTeIIZIqH4WIgRF0rXQg6em_vZ8SIyG5HSKdU1d6JcxBKJUlRPbkBeSsCrqK6jKmt2BTiOXMCcfEv0WYvOsGxWN_WjXiLzLw3ZZ8Jv367iE6NoHKAqaV8Y3szbwLT5J0nnkE-qhsVdZWKcfjFp-VjhCI1nCySOnidPCA8_n"/>
+<span class="absolute top-2 right-2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Dairy</span>
+</div>
+<div class="p-3 flex flex-col flex-grow gap-2">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">barcode_scanner</span> 520123456789
+                        </span>
+<h2 class="text-label-lg font-label-lg text-on-surface line-clamp-2">Γάλα Φρέσκο 1L</h2>
+</div>
+<div class="mt-auto pt-2 flex flex-col gap-2">
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-lg text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-secondary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Προσθήκη
+                        </button>
+<div class="flex gap-2">
+<button class="flex-1 h-10 border-1.5 border-primary-container text-primary-container rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit
+                            </button>
+<button class="flex-1 h-10 border-1.5 border-error text-error rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span> Delete
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] overflow-hidden flex flex-col border border-surface-variant">
+<div class="aspect-square w-full relative bg-surface-container-low p-2">
+<img class="w-full h-full object-contain rounded-lg mix-blend-multiply" data-alt="A brightly lit, professional product shot of a colorful cereal box against a pristine light-mode background. The Corporate Modern styling is maintained with soft, ambient lighting and crisp details. The cereal box is centered, creating a sense of organization and trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrB1n6o4Qp8j9929uSIBhM2zBu1gPGvKKl4UCBvJfpMC52er0as22HBxpD_3q22w_4ClB-xYynXMoJxvrJw4DncAj_JrutMQT6gIIxX6tVt4UQK0YlhuAHmONHmOsscpr5MbVrJf-bKR2HXosk1HwVk28BfJckCbR4HBQFHPwCeLJldJFk-rBjgkOmQmdB2rMVOAXvyGPRBh3b8FuVETXmWoj-DMjmgVrydsMOy_9gnkJJaSKje2Dr"/>
+<span class="absolute top-2 right-2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Breakfast</span>
+</div>
+<div class="p-3 flex flex-col flex-grow gap-2">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">barcode_scanner</span> 520987654321
+                        </span>
+<h2 class="text-label-lg font-label-lg text-on-surface line-clamp-2">Cereal Blocks Choco 375g</h2>
+</div>
+<div class="mt-auto pt-2 flex flex-col gap-2">
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-lg text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-secondary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Προσθήκη
+                        </button>
+<div class="flex gap-2">
+<button class="flex-1 h-10 border-1.5 border-primary-container text-primary-container rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit
+                            </button>
+<button class="flex-1 h-10 border-1.5 border-error text-error rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span> Delete
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] overflow-hidden flex flex-col border border-surface-variant">
+<div class="aspect-square w-full relative bg-surface-container-low p-2">
+<img class="w-full h-full object-contain rounded-lg mix-blend-multiply" data-alt="A clean, studio-lit photo of a loaf of sliced bread on a minimal light grey background. The lighting is bright and high-key, emphasizing the texture of the bread and the crisp, modern Corporate Modern aesthetic. A subtle shadow anchors the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyeXGaR4ULRcsnF8vGy6oYcMErLiNOOwbw5fN2_vvhpdFEEffiF4Sqn6RlXCThGLb3fE64qbC2rTUCNqXPBAPivvCh9HWstc0j-nDIlTA9nyxl7EUUW7lbYo0TTaemmwDIHpG6yoIQ7lTy6UoYd3I_HvU_xPQ3jbZniTdH8JwlHdcYI1LT6Xwj1SVE2QfC0ke_RGdNTlQq7eOgvbRXqTz3yafhDvZ6wEfGhxwwfafQvVgnz2g2DzGz"/>
+<span class="absolute top-2 right-2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Bakery</span>
+</div>
+<div class="p-3 flex flex-col flex-grow gap-2">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">barcode_scanner</span> 520444555666
+                        </span>
+<h2 class="text-label-lg font-label-lg text-on-surface line-clamp-2">Ψωμί Τοστ Σταρένιο</h2>
+</div>
+<div class="mt-auto pt-2 flex flex-col gap-2">
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-lg text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-secondary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Προσθήκη
+                        </button>
+<div class="flex gap-2">
+<button class="flex-1 h-10 border-1.5 border-primary-container text-primary-container rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit
+                            </button>
+<button class="flex-1 h-10 border-1.5 border-error text-error rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span> Delete
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] overflow-hidden flex flex-col border border-surface-variant">
+<div class="aspect-square w-full relative bg-surface-container-low p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[64px] text-outline-variant">image</span>
+<span class="absolute top-2 right-2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Produce</span>
+</div>
+<div class="p-3 flex flex-col flex-grow gap-2">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">barcode_scanner</span> 520777888999
+                        </span>
+<h2 class="text-label-lg font-label-lg text-on-surface line-clamp-2">Μήλα Κόκκινα 1kg</h2>
+</div>
+<div class="mt-auto pt-2 flex flex-col gap-2">
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-lg text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-secondary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Προσθήκη
+                        </button>
+<div class="flex gap-2">
+<button class="flex-1 h-10 border-1.5 border-primary-container text-primary-container rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit
+                            </button>
+<button class="flex-1 h-10 border-1.5 border-error text-error rounded-lg text-label-sm font-label-sm flex items-center justify-center gap-1 hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span> Delete
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-20 right-4 w-14 h-14 bg-primary-container text-on-primary rounded-xl shadow-[0px_8px_24px_rgba(15,23,42,0.12)] flex items-center justify-center hover:bg-primary-container/90 transition-transform active:scale-95 z-40 md:bottom-8">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar from JSON - Hidden on md and up -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-14 bg-surface dark:bg-inverse-surface px-2 pb-safe shadow-[0px_-2px_8px_rgba(15,23,42,0.05)] border-t border-transparent">
+<!-- Active Tab: ΠΡΟΪΟΝΤΑ -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim bg-secondary-container/20 rounded-xl px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform duration-150 active:scale-95 touch-target flex-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-label-sm font-label-sm mt-1">Προϊόντα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform duration-150 active:scale-95 touch-target flex-1" href="#">
+<span class="material-symbols-outlined">shopping_basket</span>
+<span class="text-label-sm font-label-sm mt-1">Λίστα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform duration-150 active:scale-95 touch-target flex-1" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-sm font-label-sm mt-1">Αναζήτηση</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform duration-150 active:scale-95 touch-target flex-1" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-sm font-label-sm mt-1">Καταστήματα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform duration-150 active:scale-95 touch-target flex-1" href="#">
+<span class="material-symbols-outlined">sell</span>
+<span class="text-label-sm font-label-sm mt-1">Τιμές</span>
+</a>
+</nav>
+</body></html>

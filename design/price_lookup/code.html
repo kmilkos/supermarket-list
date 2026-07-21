@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="el"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Price Lookup - SuperMarket List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#410002",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#7cf994",
+                        "on-surface": "#191c1e",
+                        "secondary": "#006e2d",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-container": "#eeefff",
+                        "tertiary": "#ae0010",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#b4c5ff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#d52022",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#62df7d",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed": "#00174b",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#007230",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#0053db",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface": "#f7f9fb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed": "#002109",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6",
+                        "secondary-fixed": "#7ffc97",
+                        "on-tertiary-container": "#ffecea",
+                        "tertiary-fixed": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "outline": "#737686",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#005320",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "container-padding": "16px",
+                        "touch-target-min": "44px",
+                        "gutter": "12px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "price-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "price-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "display": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-mobile h-14 w-full bg-surface shadow-sm docked full-width top-0 sticky z-40">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-variant/50 p-2 rounded-full transition-colors" data-icon="menu">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">SuperMarket List</h1>
+</div>
+<div>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-variant/50 p-2 rounded-full transition-colors" data-icon="search">search</span>
+</div>
+</header>
+<main class="max-w-3xl mx-auto px-container-padding py-6 space-y-8">
+<!-- Input Section -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-6 space-y-6">
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="barcode">Scan / Enter Barcode</label>
+<div class="flex gap-2">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">barcode_scanner</span>
+<input class="w-full h-touch-target-min pl-10 pr-4 rounded-lg border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md transition-shadow" id="barcode" placeholder="e.g. 520987654321" type="text"/>
+</div>
+<button class="h-touch-target-min px-6 bg-primary-container text-on-primary rounded-lg text-label-lg font-label-lg hover:bg-primary-fixed-variant transition-colors flex items-center gap-2">
+<span>Lookup</span>
+</button>
+</div>
+</div>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-surface-variant"></div>
+<span class="flex-shrink-0 mx-4 text-outline text-label-sm font-label-sm">OR</span>
+<div class="flex-grow border-t border-surface-variant"></div>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="searchName">Search by Name</label>
+<div class="flex gap-2">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-touch-target-min pl-10 pr-4 rounded-lg border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md transition-shadow" id="searchName" placeholder="e.g. Ελαιόλαδο..." type="text"/>
+</div>
+<button class="h-touch-target-min px-6 bg-surface-container text-primary rounded-lg text-label-lg font-label-lg border border-primary hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span>Search</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Result Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-48 aspect-square rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A clean, professional product shot of a 1L bottle of premium Greek olive oil (Ελαιόλαδο) by brand Xenia. The bottle is glass with an elegant green tint, set against a pristine white background. Studio lighting highlights the golden oil inside and casts a soft drop shadow, creating a modern, e-commerce ready look suitable for a high-end supermarket grocery app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeFZ3e_8Ff1D3yc0pXbzXWd4bW_WttRJNBoU9ReZ1j5JVMbD2rWm7rCQe6ARbc4pjPTj_vl51bmYESnrt9U0x4m6twoK7ri7j27600qHQHACLM6KavuoQDjUrvJKnie5JpsVyRH0dMTKOK_jgEQtINoANST530f5ILvxcEb84Zilobz8rTlpOipeCg3XOkvbb0abdR3ILQdtKncNTxCXsHOu7DxsFGqlPFymjVQLniDv7a-rTSj3ax"/>
+</div>
+<div class="flex-1 space-y-4 w-full">
+<div>
+<div class="flex justify-between items-start">
+<div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Pantry • Xenia</span>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mt-1">Ελαιόλαδο 1L</h2>
+<p class="text-body-sm text-outline font-mono mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">barcode</span> 520987654321
+                                </p>
+</div>
+</div>
+</div>
+<!-- Stats Bar -->
+<div class="grid grid-cols-4 gap-2 bg-surface-container-low rounded-lg p-3">
+<div class="text-center">
+<span class="block text-label-sm font-label-sm text-outline">Best</span>
+<span class="block text-price-lg font-price-lg text-secondary">€8.50</span>
+</div>
+<div class="text-center border-l border-surface-variant">
+<span class="block text-label-sm font-label-sm text-outline">Avg</span>
+<span class="block text-price-lg font-price-lg text-on-surface">€9.40</span>
+</div>
+<div class="text-center border-l border-surface-variant">
+<span class="block text-label-sm font-label-sm text-outline">High</span>
+<span class="block text-price-lg font-price-lg text-on-surface-variant">€10.20</span>
+</div>
+<div class="text-center border-l border-surface-variant">
+<span class="block text-label-sm font-label-sm text-outline">Stores</span>
+<span class="block text-price-lg font-price-lg text-on-surface">4</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Table -->
+<div class="border-t border-surface-variant">
+<div class="p-4 bg-surface-container-low grid grid-cols-12 gap-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">
+<div class="col-span-5 md:col-span-6">Supermarket</div>
+<div class="col-span-3 md:col-span-2 text-right">Price</div>
+<div class="col-span-4 hidden md:block text-right">Last Updated</div>
+</div>
+<!-- Best Price Row -->
+<div class="p-4 grid grid-cols-12 gap-4 items-center bg-secondary-container/20 border-l-4 border-secondary hover:bg-secondary-container/30 transition-colors cursor-pointer">
+<div class="col-span-5 md:col-span-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-sm">storefront</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-on-surface flex items-center gap-2">
+                                Sklavenitis
+                                <span class="bg-secondary text-on-secondary text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Best</span>
+</div>
+</div>
+</div>
+<div class="col-span-3 md:col-span-2 text-right">
+<span class="text-price-lg font-price-lg text-secondary">€8.50</span>
+</div>
+<div class="col-span-4 hidden md:flex justify-end items-center text-body-sm text-outline gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Today
+                    </div>
+</div>
+<!-- Regular Rows -->
+<div class="p-4 grid grid-cols-12 gap-4 items-center border-t border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="col-span-5 md:col-span-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shadow-sm border border-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">storefront</span>
+</div>
+<div class="text-label-lg font-label-lg text-on-surface">AB Vassilopoulos</div>
+</div>
+<div class="col-span-3 md:col-span-2 text-right">
+<div class="flex flex-col items-end">
+<span class="text-price-lg font-price-lg text-on-surface">€9.20</span>
+<span class="text-[10px] text-error bg-error-container px-1 rounded-sm">-10%</span>
+</div>
+</div>
+<div class="col-span-4 hidden md:flex justify-end items-center text-body-sm text-outline gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Yesterday
+                    </div>
+</div>
+<div class="p-4 grid grid-cols-12 gap-4 items-center border-t border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="col-span-5 md:col-span-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shadow-sm border border-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">storefront</span>
+</div>
+<div class="text-label-lg font-label-lg text-on-surface">MyMarket</div>
+</div>
+<div class="col-span-3 md:col-span-2 text-right">
+<span class="text-price-lg font-price-lg text-on-surface">€9.80</span>
+</div>
+<div class="col-span-4 hidden md:flex justify-end items-center text-body-sm text-outline gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 2 days ago
+                    </div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="p-4 bg-surface-container border-t border-surface-variant">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-lg text-label-lg font-label-lg hover:bg-primary-fixed-variant transition-colors flex justify-center items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined">playlist_add</span>
+                    Save Product &amp; Import Prices
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-14 bg-surface px-2 pb-safe shadow-[0px_-2px_8px_rgba(15,23,42,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-2 py-1 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-sm font-label-sm-mobile mt-1">Προϊόντα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-2 py-1 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="shopping_basket">shopping_basket</span>
+<span class="text-label-sm font-label-sm-mobile mt-1">Λίστα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-secondary-container/20 rounded-xl px-4 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+<span class="text-label-sm font-label-sm-mobile mt-1">Αναζήτηση</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-2 py-1 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="storefront">storefront</span>
+<span class="text-label-sm font-label-sm-mobile mt-1">Καταστήματα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-2 py-1 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="sell">sell</span>
+<span class="text-label-sm font-label-sm-mobile mt-1">Τιμές</span>
+</a>
+</nav>
+</body></html>

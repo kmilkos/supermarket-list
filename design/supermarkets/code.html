@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="el"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperMarket List - Καταστήματα</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#410002",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#7cf994",
+                        "on-surface": "#191c1e",
+                        "secondary": "#006e2d",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-container": "#eeefff",
+                        "tertiary": "#ae0010",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#b4c5ff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#d52022",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#62df7d",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed": "#00174b",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#007230",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#0053db",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface": "#f7f9fb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed": "#002109",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6",
+                        "secondary-fixed": "#7ffc97",
+                        "on-tertiary-container": "#ffecea",
+                        "tertiary-fixed": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "outline": "#737686",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#005320",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "container-padding": "16px",
+                        "touch-target-min": "44px",
+                        "gutter": "12px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "price-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "price-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "display": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-[calc(56px+env(safe-area-inset-bottom)+16px)]">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 bg-surface dark:bg-inverse-surface shadow-sm flex justify-between items-center px-margin-mobile h-14 w-full sticky z-40">
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-primary dark:text-inverse-primary hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-opacity rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">SuperMarket List</h1>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-primary dark:text-inverse-primary hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-opacity rounded-full">
+<span class="text-label-lg font-label-lg font-bold">+ Add</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="px-container-padding py-6">
+<h2 class="text-headline-lg font-headline-lg mb-6">Καταστήματα</h2>
+<!-- Supermarket Grid -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Store 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex flex-col items-center relative overflow-hidden group">
+<button class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-outline-variant hover:text-error transition-colors rounded-full hover:bg-error-container/50">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center text-[32px] mb-3 mt-2">
+                    🛒
+                </div>
+<h3 class="text-label-lg font-label-lg text-center mb-1">Sklavenitis</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-center">1.2 km away</p>
+</div>
+<!-- Store 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex flex-col items-center relative overflow-hidden group">
+<button class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-outline-variant hover:text-error transition-colors rounded-full hover:bg-error-container/50">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center text-[32px] mb-3 mt-2">
+                    🏬
+                </div>
+<h3 class="text-label-lg font-label-lg text-center mb-1">AB Vassilopoulos</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-center">0.8 km away</p>
+</div>
+<!-- Store 3 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex flex-col items-center relative overflow-hidden group">
+<button class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-outline-variant hover:text-error transition-colors rounded-full hover:bg-error-container/50">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center text-[32px] mb-3 mt-2">
+                    🏪
+                </div>
+<h3 class="text-label-lg font-label-lg text-center mb-1">Lidl</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-center">2.5 km away</p>
+</div>
+<!-- Store 4 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex flex-col items-center relative overflow-hidden group">
+<button class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-outline-variant hover:text-error transition-colors rounded-full hover:bg-error-container/50">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center text-[32px] mb-3 mt-2">
+                    🛒
+                </div>
+<h3 class="text-label-lg font-label-lg text-center mb-1">MyMarket</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-center">1.8 km away</p>
+</div>
+<!-- Store 5 Add New -->
+<div class="bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center min-h-[160px] cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-12 h-12 bg-primary-container/10 text-primary rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined">add</span>
+</div>
+<h3 class="text-label-lg font-label-lg text-primary text-center">Add Store</h3>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-14 bg-surface dark:bg-inverse-surface px-2 pb-safe shadow-[0px_-2px_8px_rgba(15,23,42,0.05)] md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl w-touch-target-min">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span class="text-label-sm font-label-sm-mobile">Προϊόντα</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl w-touch-target-min">
+<span class="material-symbols-outlined mb-1">shopping_basket</span>
+<span class="text-label-sm font-label-sm-mobile">Λίστα</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl w-touch-target-min">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="text-label-sm font-label-sm-mobile">Αναζήτηση</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim bg-secondary-container/20 rounded-xl px-2 py-1 scale-95 transition-transform duration-150 w-touch-target-min">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="text-label-sm font-label-sm-mobile font-bold">Καταστήματα</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl w-touch-target-min">
+<span class="material-symbols-outlined mb-1">sell</span>
+<span class="text-label-sm font-label-sm-mobile">Τιμές</span>
+</button>
+</nav>
+</body></html>

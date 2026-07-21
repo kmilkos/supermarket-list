@@ -1,0 +1,11 @@
+{
+  "name": "supermarket-list",
+  "version": "1.0.0",
+  "description": "Supermarket price comparison app",
+  "scripts": {
+    "server": "cd server && node index.js",
+    "client": "cd client && npx vite",
+    "dev": "npm run server > /dev/null 2>&1 & npm run client > /dev/null 2>&1 &",
+    "build": "cd client && npx vite build"
+  }
+}

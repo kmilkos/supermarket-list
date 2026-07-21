@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="el"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperMarket List - Λίστα</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#410002",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "secondary-container": "#7cf994",
+                        "on-surface": "#191c1e",
+                        "secondary": "#006e2d",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-container": "#eeefff",
+                        "tertiary": "#ae0010",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#b4c5ff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#d52022",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#62df7d",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed": "#00174b",
+                        "surface-dim": "#d8dadc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#007230",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#0053db",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface": "#f7f9fb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed": "#002109",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#004ac6",
+                        "secondary-fixed": "#7ffc97",
+                        "on-tertiary-container": "#ffecea",
+                        "tertiary-fixed": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "outline": "#737686",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed-variant": "#005320",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "container-padding": "16px",
+                        "touch-target-min": "44px",
+                        "gutter": "12px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "price-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "price-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "display": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f7f9fb; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen pb-[80px]">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 bg-surface dark:bg-inverse-surface shadow-sm flex justify-between items-center px-margin-mobile h-14 w-full sticky z-40">
+<button aria-label="Menu" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-colors rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary truncate px-4">SuperMarket List</h1>
+<button aria-label="Search" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-colors rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+</header>
+<main class="px-container-padding py-6 max-w-3xl mx-auto space-y-6">
+<!-- Summary Bar -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex justify-between items-center border border-surface-variant">
+<div class="flex gap-4 text-body-md font-body-md text-on-surface-variant">
+<div>Items: <span class="font-label-lg font-bold text-on-surface">5</span></div>
+<div>Qty: <span class="font-label-lg font-bold text-on-surface">12</span></div>
+</div>
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase">Est. Total</div>
+<div class="text-price-lg font-price-lg text-primary">€24.50</div>
+</div>
+</section>
+<!-- Actions -->
+<div class="flex justify-end">
+<button class="h-touch-target-min px-4 bg-error-container text-on-error-container rounded-lg text-label-lg font-label-lg flex items-center gap-2 hover:bg-error/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">delete_sweep</span>
+                Clear Checked
+            </button>
+</div>
+<!-- List Items -->
+<div class="space-y-4">
+<!-- Active Item 1 -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex items-center gap-4 border border-surface-variant relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary hidden md:block"></div>
+<label class="flex items-center justify-center h-touch-target-min w-touch-target-min cursor-pointer shrink-0">
+<input class="w-6 h-6 rounded text-primary focus:ring-primary border-outline-variant cursor-pointer" type="checkbox"/>
+</label>
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A macro studio shot of a loaf of fresh whole wheat bread with a crispy crust, lit by soft diffused lighting against a pure white background in a clean, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqDOOABNgKXDKKq9LVVd10zovIkVmD4WJxApr3tZ2aRTt1hWNs7mc06yXQFIIxHrWB_ODziaErq--vPP_YNJ7n8F9-irHosVcWo-wPhxQyY767QnjIlqh-gOlItweG_AsiLbpYImEw5ylAEHy-FIDc1Ae2idTUfZmb9IJBMX6gxEjvalWYBO-EhxlJjwIPKgKKi_2Xvf38YOhyPzrsugvwX91hzw662oZz2tP6_7P9_8P4ReBJJedj"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-label-lg font-label-lg text-on-surface truncate">Ψωμί Ολικής</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-body-md font-body-md font-bold text-secondary">€1.20</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-full">Sklavenitis</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2 shrink-0">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button aria-label="Decrease quantity" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-variant text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="w-8 text-center text-label-lg font-label-lg text-on-surface">2</span>
+<button aria-label="Increase quantity" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-variant text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<div class="text-label-lg font-label-lg text-on-surface">€2.40</div>
+</div>
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-outline hover:text-error transition-colors shrink-0 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</article>
+<!-- Active Item 2 -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex items-center gap-4 border border-surface-variant relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary hidden md:block"></div>
+<label class="flex items-center justify-center h-touch-target-min w-touch-target-min cursor-pointer shrink-0">
+<input class="w-6 h-6 rounded text-primary focus:ring-primary border-outline-variant cursor-pointer" type="checkbox"/>
+</label>
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A vibrant cluster of fresh red apples with water droplets, photographed on a bright, minimalist white surface under studio lighting, conveying freshness and quality in a clean modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCavwHpwtlapWQSO2inkJyA6cczKq0Jn0fdu-gvY94wNDKGsoj7mChBzf-MvRhN5yevuBdydXgAiBdTuwnGNDskNu59BvRA-87cd3WuOZoVnyKX8HV_QTghcFvcs-5UOvUPE92X67zl2qgC2_2-ah1YdPm_VvAYuyJcTS7nCaIO5wjm4ky8rGlCqzZusFJ2obqIseD95fAZuDQjFigKqJVGsrrWcxp2i9VRGGn1AL52uswBajVHlFzy"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-label-lg font-label-lg text-on-surface truncate">Apples Fuji</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-body-md font-body-md font-bold text-secondary">€2.50/kg</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-full">AB Vassilopoulos</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2 shrink-0">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button aria-label="Decrease quantity" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-variant text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="w-8 text-center text-label-lg font-label-lg text-on-surface">1</span>
+<button aria-label="Increase quantity" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-variant text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<div class="text-label-lg font-label-lg text-on-surface">€2.50</div>
+</div>
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-outline hover:text-error transition-colors shrink-0 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</article>
+<!-- Checked (Struck-through) Item -->
+<article class="bg-surface-container-low rounded-xl shadow-[0px_2px_8px_rgba(15,23,42,0.05)] p-4 flex items-center gap-4 border border-transparent opacity-60 transition-opacity">
+<label class="flex items-center justify-center h-touch-target-min w-touch-target-min cursor-pointer shrink-0">
+<input checked="" class="w-6 h-6 rounded text-primary focus:ring-primary border-outline-variant cursor-pointer" type="checkbox"/>
+</label>
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container flex items-center justify-center grayscale">
+<img class="w-full h-full object-cover" data-alt="A pristine carton of milk sitting against a seamless light gray background. The lighting is even and bright, capturing the clean lines of the packaging in a highly stylized, modern corporate look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfpd7miCURRFHlK5XXuvkC69NZoda3g1IWgrsNl-Xo9DgW7vW1aYq-rSbtio9Nh6RwobAVq-JNpcESBEgVl30f2fhZivIKNYon0azVPDczFOKv-KlIjEx9r2fZ48g1cipe2o059v1VvF-5M9XSEjduleHqAF9IJe64MxaAGze1OfGSv9U5kyLFwNhkjfXOWniIHSQCH2RNDoKDiTn3um70ThG1vaRjUtahdPqi_YqY25PEpls-q2Ay"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-label-lg font-label-lg text-on-surface truncate line-through decoration-outline">Γάλα Πλήρες</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-body-md font-body-md text-on-surface-variant line-through decoration-outline">€1.45</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded-full line-through decoration-outline">Masoutis</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2 shrink-0">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1 opacity-50 pointer-events-none">
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-on-surface"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="w-8 text-center text-label-lg font-label-lg text-on-surface">2</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-on-surface"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<div class="text-label-lg font-label-lg text-on-surface line-through decoration-outline">€2.90</div>
+</div>
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-outline hover:text-error transition-colors shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</article>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-14 bg-surface dark:bg-inverse-surface px-2 pb-safe shadow-[0px_-2px_8px_rgba(15,23,42,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest min-h-touch-target-min min-w-touch-target-min rounded-lg" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="text-label-sm font-label-sm">Προϊόντα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed-dim bg-secondary-container/20 rounded-xl px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest min-h-touch-target-min min-w-touch-target-min scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">shopping_basket</span>
+<span class="text-label-sm font-label-sm">Λίστα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest min-h-touch-target-min min-w-touch-target-min rounded-lg" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">search</span>
+<span class="text-label-sm font-label-sm">Αναζήτηση</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest min-h-touch-target-min min-w-touch-target-min rounded-lg" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">storefront</span>
+<span class="text-label-sm font-label-sm">Καταστήματα</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest min-h-touch-target-min min-w-touch-target-min rounded-lg" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">sell</span>
+<span class="text-label-sm font-label-sm">Τιμές</span>
+</a>
+</nav>
+</body></html>

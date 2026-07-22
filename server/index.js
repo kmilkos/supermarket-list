@@ -447,6 +447,16 @@ app.post('/api/lookup/import-prices', asyncHandler(async (req, res) => {
   res.json({ imported: prices.length, prices: prices.map(p => ({ supermarket: p.supermarket_name, price: p.price })) });
 }));
 
+// Serve mkcert CA certificate for client installation
+app.get('/ca.crt', (req, res) => {
+  const caPath = path.join(__dirname, '..', 'certs', '_install_on_clients.pem');
+  if (fs.existsSync(caPath)) {
+    res.download(caPath, 'mkcert-CA.pem');
+  } else {
+    res.status(404).json({ error: 'CA certificate not found. Run install.sh --https' });
+  }
+});
+
 // ==================== ERROR HANDLER ====================
 
 app.use((err, req, res, _next) => {

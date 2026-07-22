@@ -77,7 +77,7 @@ if [ "$USE_HTTPS" = true ]; then
   cd "$CERT_DIR"
   mkcert "$SERVER_IP" localhost 127.0.0.1
 
-  # Rename to expected filenames (mkcert outputs e.g. 192.168.1.155+2.pem)
+  # Rename to expected filenames
   CERT_FILE=$(ls -t *.pem | grep -v -- "-key" | head -1)
   KEY_FILE=$(ls -t *-key.pem | head -1)
   if [ -n "$CERT_FILE" ] && [ -n "$KEY_FILE" ]; then
@@ -85,9 +85,48 @@ if [ "$USE_HTTPS" = true ]; then
     mv "$KEY_FILE" key.pem
   fi
 
+  # Copy root CA to certs dir for client installation
+  CA_FILE=$(mkcert -CAROOT)/rootCA.pem
+  if [ -f "$CA_FILE" ]; then
+    cp "$CA_FILE" "$CERT_DIR/_install_on_clients.pem"
+    echo "mkcert root CA copied to $CERT_DIR/_install_on_clients.pem"
+  fi
+
   chown -R "$RUN_USER":"$RUN_USER" "$CERT_DIR"
   cd "$APP_DIR"
-  echo "Certificates saved to $CERT_DIR"
+
+  echo ""
+  echo "============================================"
+  echo "  HTTPS enabled for LAN access"
+  echo "============================================"
+  echo ""
+  echo "  App:   https://$SERVER_IP:3001"
+  echo "  CA:    http://$SERVER_IP:3000/ca.crt"
+  echo ""
+  echo "  To trust the certificate on each client:"
+  echo ""
+  echo "  1. Open http://$SERVER_IP:3000/ca.crt in a browser"
+  echo "     on the client device and download the file."
+  echo ""
+  echo "  2. Install the CA certificate:"
+  echo ""
+  echo "  ┌─────────────┬──────────────────────────────────────────┐"
+  echo "  │ Android     │ Settings → Security → Install from       │"
+  echo "  │             │ storage → select the downloaded .pem     │"
+  echo "  ├─────────────┼──────────────────────────────────────────┤"
+  echo "  │ iOS         │ Settings → General → Profiles → Install │"
+  echo "  │             │ → General → About → Certificate Trust →  │"
+  echo "  │             │ Enable                                   │"
+  echo "  ├─────────────┼──────────────────────────────────────────┤"
+  echo "  │ Windows     │ Double-click .pem → Install Certificate  │"
+  echo "  │             │ → Local Machine → Trusted Root CAs       │"
+  echo "  ├─────────────┼──────────────────────────────────────────┤"
+  echo "  │ macOS       │ Double-click → Keychain Access → System  │"
+  echo "  │             │ → double-click → Trust → Always Trust    │"
+  echo "  └─────────────┴──────────────────────────────────────────┘"
+  echo ""
+  echo "  3. Open https://$SERVER_IP:3001 in the browser."
+  echo "============================================"
 fi
 
 # --- systemd service ---
@@ -98,10 +137,12 @@ if [ "$USE_HTTPS" = true ]; then
   EXEC_START="$(which node) $APP_DIR/server/https.js"
   SERVER_IP=$(hostname -I | awk '{print $1}')
   URL="https://$SERVER_IP:3001"
+  CA_URL="CA cert: http://$SERVER_IP:3000/ca.crt"
 else
   EXEC_START="$(which node) $APP_DIR/server/index.js"
   SERVER_IP=$(hostname -I | awk '{print $1}')
   URL="http://$SERVER_IP:3001"
+  CA_URL=""
 fi
 
 cat > "$SERVICE_FILE" <<EOF
@@ -131,6 +172,7 @@ echo ""
 echo "=== Install complete ==="
 echo "  Service: ${APP_NAME}"
 echo "  URL:     ${URL}"
+[ -n "$CA_URL" ] && echo "  ${CA_URL}"
 echo ""
 if [ "$USE_HTTPS" = false ]; then
   echo "  Tip: run with --https to enable camera access:"

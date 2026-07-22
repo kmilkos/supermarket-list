@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [ "$EUID" -ne 0 ]; then
-  echo "Please run with sudo: sudo ./install.sh"
+  echo "Please run with sudo: sudo ./install.sh [--https]"
   exit 1
 fi
 
@@ -11,6 +11,13 @@ APP_NAME="supermarket-list"
 SERVICE_FILE="/etc/systemd/system/${APP_NAME}.service"
 NODE_VERSION="22"
 RUN_USER="${SUDO_USER:-root}"
+USE_HTTPS=false
+
+for arg in "$@"; do
+  case "$arg" in
+    --https) USE_HTTPS=true ;;
+  esac
+done
 
 echo "=== SuperMarketList Installer for Debian ==="
 
@@ -45,8 +52,58 @@ npm run build
 mkdir -p "$APP_DIR/server/uploads"
 chown "$RUN_USER":"$RUN_USER" "$APP_DIR/server/uploads" 2>/dev/null || true
 
+# --- Optional HTTPS via mkcert ---
+if [ "$USE_HTTPS" = true ]; then
+  echo ""
+  echo "--- Setting up HTTPS with mkcert ---"
+
+  # Install mkcert
+  if ! command -v mkcert &>/dev/null; then
+    echo "Installing mkcert..."
+    apt-get install -y libnss3-tools
+    curl -fsSL -o /usr/local/bin/mkcert https://dl.filippo.io/mkcert/latest?for=linux/amd64
+    chmod +x /usr/local/bin/mkcert
+    mkcert -install
+  else
+    echo "mkcert already installed"
+  fi
+
+  # Detect server IP
+  SERVER_IP=$(hostname -I | awk '{print $1}')
+  CERT_DIR="$APP_DIR/certs"
+  mkdir -p "$CERT_DIR"
+
+  echo "Generating certificate for IP: $SERVER_IP"
+  cd "$CERT_DIR"
+  mkcert "$SERVER_IP" localhost 127.0.0.1
+
+  # Rename to expected filenames (mkcert outputs e.g. 192.168.1.155+2.pem)
+  CERT_FILE=$(ls -t *.pem | grep -v -- "-key" | head -1)
+  KEY_FILE=$(ls -t *-key.pem | head -1)
+  if [ -n "$CERT_FILE" ] && [ -n "$KEY_FILE" ]; then
+    mv "$CERT_FILE" cert.pem
+    mv "$KEY_FILE" key.pem
+  fi
+
+  chown -R "$RUN_USER":"$RUN_USER" "$CERT_DIR"
+  cd "$APP_DIR"
+  echo "Certificates saved to $CERT_DIR"
+fi
+
 # --- systemd service ---
+echo ""
 echo "Setting up systemd service..."
+
+if [ "$USE_HTTPS" = true ]; then
+  EXEC_START="$(which node) $APP_DIR/server/https.js"
+  SERVER_IP=$(hostname -I | awk '{print $1}')
+  URL="https://$SERVER_IP:3001"
+else
+  EXEC_START="$(which node) $APP_DIR/server/index.js"
+  SERVER_IP=$(hostname -I | awk '{print $1}')
+  URL="http://$SERVER_IP:3001"
+fi
+
 cat > "$SERVICE_FILE" <<EOF
 [Unit]
 Description=SuperMarketList price comparison app
@@ -56,7 +113,7 @@ After=network.target
 Type=simple
 User=$RUN_USER
 WorkingDirectory=$APP_DIR
-ExecStart=$(which node) $APP_DIR/server/index.js
+ExecStart=$EXEC_START
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
@@ -73,6 +130,9 @@ systemctl start "$APP_NAME"
 echo ""
 echo "=== Install complete ==="
 echo "  Service: ${APP_NAME}"
-echo "  URL:     http://$(hostname -I | awk '{print $1}'):3001"
+echo "  URL:     ${URL}"
 echo ""
-echo "For HTTPS setup, see: SETUP_HTTPS.md"
+if [ "$USE_HTTPS" = false ]; then
+  echo "  Tip: run with --https to enable camera access:"
+  echo "       sudo ./install.sh --https"
+fi
